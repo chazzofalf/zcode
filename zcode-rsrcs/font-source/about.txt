@@ -1,0 +1,17 @@
+﻿Font Sources for zethana true type font.
+Essentially it the the Marc Okrand's Atlantean with a some modifications. 
+A through M is now
+N through Z and
+N through Z is now
+A through M
+I did that so that the O is the character is the one that looks like it might be The Devil's sigil not B. (B is swapped with O)
+Also Z were replaced with O transposed on top its horizontal flipping of its self. So Z is the Greater-O and O is the lesser-Z. (O <=|=> Z)
+If you find the meaning of the relation between the B's, O's and Z's please keep it to yourself for the cosmos' sake. 
+Unless of course YOU are the one whose identity might have something to do with the hidden secret then by all means please reach out and say hello. 
+The numbers are in the following order:
+0123456789
+0741852963
+ch combo character now means '.'
+sh combo character now means '!'
+th combo character now means '?'
+All other characters including space are spaces.
