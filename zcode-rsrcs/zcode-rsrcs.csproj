@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>zcode_rsrcs</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="demo.txt" />
+    <None Remove="zethana.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="demo.txt">
+      <LogicalName>zcode_test.rsrc.demo_text</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="zethana.ttf">
+      <LogicalName>zcode.rsrc.zethana_font</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
