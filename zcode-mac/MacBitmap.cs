@@ -19,7 +19,7 @@ namespace zcode_mac
             _nativeBitmap = nativeBitmap;
             _nativeFont = nativeFont;
         }
-
+        public SkiaSharp.SKBitmap NativeBitmap => _nativeBitmap;
         public ISize Size => new MacSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
 
         public bool BitmapIsEqualToBitmap(IBitmap bitmap)

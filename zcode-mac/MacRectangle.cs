@@ -17,6 +17,7 @@ namespace zcode_mac
         {
             this.skRect = skRect;
         }
+        public SKRectI NativeRect => skRect;
 
         public int X => throw new NotImplementedException();
 

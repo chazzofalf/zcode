@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SkiaSharp;
 using zcode_api_std;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace zcode_mac
 {
@@ -23,12 +24,21 @@ namespace zcode_mac
 
         public void Clear(IColor color)
         {
-            throw new NotImplementedException();
+            if (color is MacColor mColor)
+            {
+                this.canvas.Clear(mColor.NativeColor);
+            }
         }
 
         public void DrawImage(IBitmap bitmap, IRectangle destination, IRectangle source)
         {
-            throw new NotImplementedException();
+            if (destination is MacRectangle mDestination &&
+                source is MacRectangle mSource &&
+                bitmap is MacBitmap mImage)
+            {
+                this.canvas.DrawBitmap(mImage.NativeBitmap, mDestination.NativeRect, mSource.NativeRect);
+            }
+            
         }
 
         public void DrawString(string text, IColor color)
