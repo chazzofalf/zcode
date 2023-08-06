@@ -21,7 +21,7 @@ namespace zcode_win
 
             //fontFile.Create();
             var fs = new System.IO.FileStream(fontFile.FullName, FileMode.Create, FileAccess.Write);
-            var inn = typeof(zcode_rsrcs.Resources).Assembly.GetManifestResourceStream("zcode.rsrc.zethana_font");
+            var inn = typeof(zcode_rsrcs.Resources).Assembly.GetManifestResourceStream(zcode_rsrcs.Resources.FontResourceName);
             if (inn != null)
             {
                 inn.CopyTo(fs);

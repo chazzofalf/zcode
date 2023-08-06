@@ -16,7 +16,7 @@ namespace zcode_win_app
         {
             var gs = new WindowsGraphicsSystem();
             var proc = new ZethanaCode(gs);
-            var fs = typeof(Resources).Assembly.GetManifestResourceStream("zcode_test.rsrc.demo_text");
+            var fs = typeof(Resources).Assembly.GetManifestResourceStream(zcode_rsrcs.Resources.DemoResourceName);
             var ts = new System.IO.StreamReader(fs);
             var msg = ts.ReadToEnd();
 
