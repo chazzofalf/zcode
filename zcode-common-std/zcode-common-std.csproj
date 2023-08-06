@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>zcode_common_std</RootNamespace>
+    
+  </PropertyGroup>
+
+</Project>
