@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zcode_api_std;
-
+using zcode_common_std;
 namespace zcode_win
 {
     internal class WindowsBitmap : IBitmap
@@ -17,12 +17,13 @@ namespace zcode_win
         {
             _bitmap = bitmap;
             _font = font;
+            _size = Util.LazyVariable<ISize>.Create(() =>
+            {
+                return new WindowsSize(_bitmap.Size);
+            });
         }
-        private ISize _size;
-        public ISize Size => _size = _size != null ? _size : ((Func<ISize>)(() =>
-        {
-            return new WindowsSize(_bitmap.Size);
-        }))();
+        private Util.LazyVariable<ISize> _size;
+        public ISize Size => _size.Get;
 
         public bool BitmapIsEqualToBitmap(IBitmap bitmap)
         {

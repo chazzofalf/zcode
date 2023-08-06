@@ -61,6 +61,9 @@
       <Project>{34835574-0ce3-4308-8e01-9113be161bfe}</Project>
       <Name>zcode-rsrcs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\zcode-common-std\zcode-common-std.csproj">
+      <Name>zcode-common-std</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

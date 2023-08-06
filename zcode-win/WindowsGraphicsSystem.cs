@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zcode_api_std;
+using zcode_common_std;
 namespace zcode_win
 {
     public class WindowsGraphicsSystem : IGraphicsSystem,IDisposable
@@ -27,6 +28,19 @@ namespace zcode_win
                 inn.CopyTo(fs);
                 inn.Close();
                 fs.Close();
+                _privatefonts = Util.LazyVariable<System.Drawing.Text.PrivateFontCollection>.Create(() =>
+                {
+                    if (fontFile != null)
+                    {
+                        var pf = new System.Drawing.Text.PrivateFontCollection();
+                        pf.AddFontFile(fontFile.FullName);
+                        return pf;
+                    }
+                    else
+                    {
+                        throw new Exception("Could not create font file.");
+                    }
+                });
             }
             else
             {
@@ -34,30 +48,21 @@ namespace zcode_win
             }
         }
 
-        private System.Drawing.Text.PrivateFontCollection _privatefonts = null;
-        private System.Drawing.Text.PrivateFontCollection PrivateFonts_ => (System.Drawing.Text.PrivateFontCollection)(_privatefonts = _privatefonts != null ? _privatefonts :  ((System.Func<System.Drawing.Text.PrivateFontCollection>)(() => {
-            if (fontFile != null)
-            {
-                var pf = new System.Drawing.Text.PrivateFontCollection();
-                pf.AddFontFile(fontFile.FullName);
-                return pf;
-            }
-            else
-            {
-                throw new Exception("Could not create font file.");
-            }
-
-        }))());
+        //private System.Drawing.Text.PrivateFontCollection _privatefonts = null;
+        private Util.LazyVariable<System.Drawing.Text.PrivateFontCollection> _privatefonts;
+        private System.Drawing.Text.PrivateFontCollection PrivateFonts_ => _privatefonts.Get;
         private System.Drawing.Font Font => PrivateFonts_.Families.Where(ff => ff.Name == "Zethana Monospace")
     .Select(ff => FontFromFamily(ff)).First();
         private System.Drawing.Font FontFromFamily(System.Drawing.FontFamily ff)
         {
             return new System.Drawing.Font(ff, 12, System.Drawing.FontStyle.Regular);
         }
-        private IColorSet _colorset;
-        public IColorSet ColorSet => _colorset = _colorset != null ? _colorset : ((Func<IColorSet>)(() => {
+        //private IColorSet _colorset;
+        private Util.LazyVariable<IColorSet> _colorSet = Util.LazyVariable<IColorSet>.Create(() =>
+        {
             return new WindowsColorSet();
-        }))();
+        });
+        public IColorSet ColorSet => _colorSet.Get;
 
         public IBitmap CreateBitmap(int width, int height)
         {
