@@ -6,17 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Foundation;
 using zcode_api_std;
+using zcode_common_std;
 namespace zcode_mac
 {
     public class MacGraphicsSystem : IGraphicsSystem, IDisposable
     {
         private bool disposedValue;
 
-        private MacUtil.LazyVariable<IColorSet> _colorSet = MacUtil.LazyVariable<IColorSet>.Create((Func<IColorSet>)(() =>
+        private Util.LazyVariable<IColorSet> _colorSet = Util.LazyVariable<IColorSet>.Create((Func<IColorSet>)(() =>
         {
             return (IColorSet)(new MacColorSet());
         }));
-        public IColorSet ColorSet => _colorSet.Get();
+        public IColorSet ColorSet => _colorSet.Get;
             
 
         protected virtual void Dispose(bool disposing)
@@ -40,14 +41,14 @@ namespace zcode_mac
         //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
         //     Dispose(disposing: false);
         // }
-        private MacUtil.LazyVariable<SkiaSharp.SKFont> _zisFont = MacUtil.LazyVariable<SkiaSharp.SKFont>.Create(() =>
+        private Util.LazyVariable<SkiaSharp.SKFont> _zisFont = Util.LazyVariable<SkiaSharp.SKFont>.Create(() =>
         {
             var typeface = SkiaSharp.SKTypeface.FromStream(typeof(zcode_rsrcs.Resources).Assembly.GetManifestResourceStream(zcode_rsrcs.Resources.FontResourceName));
             var font = new SkiaSharp.SKFont(typeface, 12);
             return font;
 
         });
-        private SkiaSharp.SKFont Font => _zisFont.Get();
+        private SkiaSharp.SKFont Font => _zisFont.Get;
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

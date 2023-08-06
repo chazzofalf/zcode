@@ -48,7 +48,6 @@
     <Compile Include="MacRectangle.cs" />
     <Compile Include="MacSize.cs" />
     <Compile Include="MacSizeF.cs" />
-    <Compile Include="MacUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zcode-api-std\zcode-api-std.csproj">
@@ -57,6 +56,9 @@
     </ProjectReference>
     <ProjectReference Include="..\zcode-rsrcs\zcode-rsrcs.csproj">
       <Name>zcode-rsrcs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\zcode-common-std\zcode-common-std.csproj">
+      <Name>zcode-common-std</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
