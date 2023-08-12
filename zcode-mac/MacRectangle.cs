@@ -19,12 +19,12 @@ namespace zcode_mac
         }
         public SKRectI NativeRect => skRect;
 
-        public int X => throw new NotImplementedException();
+        public int X => skRect.Left;
 
-        public int Y => throw new NotImplementedException();
+        public int Y => skRect.Top;
 
-        public int Width => throw new NotImplementedException();
+        public int Width => skRect.Right-skRect.Left;
 
-        public int Height => throw new NotImplementedException();
+        public int Height => skRect.Bottom-skRect.Top;
     }
 }

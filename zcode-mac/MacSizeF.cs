@@ -18,8 +18,8 @@ namespace zcode_mac
             this.sksizef = sksizef;
         }
 
-        public float Width => throw new NotImplementedException();
+        public float Width => sksizef.Width;
 
-        public float Height => throw new NotImplementedException();
+        public float Height => sksizef.Height;
     }
 }

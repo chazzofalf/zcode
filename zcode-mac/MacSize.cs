@@ -18,8 +18,8 @@ namespace zcode_mac
             _skSize = skSize;
         }
 
-        public int Width => throw new NotImplementedException();
+        public int Width => _skSize.Width;
 
-        public int Height => throw new NotImplementedException();
+        public int Height => _skSize.Height;
     }
 }

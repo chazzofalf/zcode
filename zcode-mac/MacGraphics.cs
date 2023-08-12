@@ -43,12 +43,21 @@ namespace zcode_mac
 
         public void DrawString(string text, IColor color)
         {
-            throw new NotImplementedException();
+            if (color is MacColor mColor)
+            {
+                var brush = new SKPaint();
+                brush.Color = mColor.NativeColor;
+                this.canvas.DrawText(text, SKPoint.Empty, brush);
+            }            
         }
 
         public ISizeF MeasureText(string text)
         {
-            throw new NotImplementedException();
+            var brush = new SKPaint(this.nativeFont);
+            var skrect = SKRect.Empty;
+            var szn = brush.MeasureText(text,ref skrect);
+            var sz = new MacSizeF(skrect.Size);
+            return sz;
         }
     }
 }

@@ -11,6 +11,10 @@ namespace zcode_mac
 {
     public class MacGraphicsSystem : IGraphicsSystem, IDisposable
     {
+        public MacGraphicsSystem()
+        {
+            SkiaSharp.SKGraphics.Init();
+        }
         private bool disposedValue;
 
         private Util.LazyVariable<IColorSet> _colorSet = Util.LazyVariable<IColorSet>.Create((Func<IColorSet>)(() =>
