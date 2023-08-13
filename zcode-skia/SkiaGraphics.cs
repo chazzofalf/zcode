@@ -9,15 +9,15 @@ using SkiaSharp;
 using zcode_api_std;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace zcode_mac
+namespace zcode_skia
 {
-    internal class MacGraphics : IGraphics
+    internal class SkiaGraphics : IGraphics
     {
         private Func<SKCanvas> canvasCreator;
         private SKFont nativeFont;
         private SKBitmap nativeBitmap;
 
-        public MacGraphics(Func<SKCanvas> canvasCreator, SKFont nativeFont,SKBitmap nativeBitmap)
+        public SkiaGraphics(Func<SKCanvas> canvasCreator, SKFont nativeFont,SKBitmap nativeBitmap)
         {
             this.canvasCreator = canvasCreator;
             this.nativeFont = nativeFont;
@@ -26,7 +26,7 @@ namespace zcode_mac
 
         public void Clear(IColor color)
         {
-            if (color is MacColor mColor)
+            if (color is SkiaColor mColor)
             {
                 using (var canvas = canvasCreator())
                 {
@@ -48,9 +48,9 @@ namespace zcode_mac
         }
         public void DrawImage(IBitmap bitmap, IRectangle destination, IRectangle source)
         {
-            if (destination is MacRectangle mDestination &&
-                source is MacRectangle mSource &&
-                bitmap is MacBitmap mImage)
+            if (destination is SkiaRectangle mDestination &&
+                source is SkiaRectangle mSource &&
+                bitmap is SkiaBitmap mImage)
             {
                 using (var canvas = canvasCreator())
                 {
@@ -87,24 +87,24 @@ namespace zcode_mac
             brush.MeasureText(text, ref rect);
 
             //var mt = this.MeasureText(text);
-            var fmt = new MacSize(new SKSizeI((int)(rect.Width == 0 ? 1 : Math.Ceiling(rect.Width)), (int)(rect.Height == 0 ? 1 : Math.Ceiling(rect.Height))));
+            var fmt = new SkiaSize(new SKSizeI((int)(rect.Width == 0 ? 1 : Math.Ceiling(rect.Width)), (int)(rect.Height == 0 ? 1 : Math.Ceiling(rect.Height))));
             var tb = new SKBitmap(fmt.Width, fmt.Height);
 
 
             using (var tg = new SKCanvas(tb))
             {
 
-                brush.Color = (SKColor)(color as MacColor)?.NativeColor;
+                brush.Color = (SKColor)(color as SkiaColor)?.NativeColor;
                 if (char.IsUpper(text[0]))
                 {
-                    var tur = new MacColor(new SkiaSharp.SKColor(64, 224, 208));
+                    var tur = new SkiaColor(new SkiaSharp.SKColor(64, 224, 208));
                     var turc = tur.NativeColor;
 
                     tg.Clear(turc);
                 }
                 else
                 {
-                    var tur = new MacColor(new SkiaSharp.SKColor(0, 0, 0));
+                    var tur = new SkiaColor(new SkiaSharp.SKColor(0, 0, 0));
                     var turc = tur.NativeColor;
                     tg.Clear(turc);
                 }
@@ -117,7 +117,7 @@ namespace zcode_mac
 
         public void DrawString(string text, IColor color)
         {
-            if (color is MacColor mColor)
+            if (color is SkiaColor mColor)
             {
                 var pg = PregenerateGlyph(text, color);
                 
@@ -139,8 +139,8 @@ namespace zcode_mac
 
         public ISizeF MeasureText(string text)
         {
-            var pg = PregenerateGlyph(text, new MacColor(new SKColor(255, 255, 255)));
-            var ssz = new MacSizeF(new SKSize(pg.Width, pg.Height));
+            var pg = PregenerateGlyph(text, new SkiaColor(new SKColor(255, 255, 255)));
+            var ssz = new SkiaSizeF(new SKSize(pg.Width, pg.Height));
             
             return ssz;
         }

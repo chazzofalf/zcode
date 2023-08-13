@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 using SkiaSharp;
 using zcode_api_std;
 
-namespace zcode_mac
+namespace zcode_skia
 {
-    internal class MacBitmap : IBitmap
+    internal class SkiaBitmap : IBitmap
     {
         private SkiaSharp.SKBitmap _nativeBitmap;
         private SkiaSharp.SKFont _nativeFont;
 
-        public MacBitmap(SKBitmap nativeBitmap, SKFont nativeFont)
+        public SkiaBitmap(SKBitmap nativeBitmap, SKFont nativeFont)
         {
             _nativeBitmap = nativeBitmap;
             _nativeFont = nativeFont;
         }
         public SkiaSharp.SKBitmap NativeBitmap => _nativeBitmap;
-        public ISize Size => new MacSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
+        public ISize Size => new SkiaSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
 
         public bool BitmapIsEqualToBitmap(IBitmap bitmap)
         {
             var eq = true;
-            if (bitmap is MacBitmap mbitmap)
+            if (bitmap is SkiaBitmap mbitmap)
             {
                 var _otherBitmap = mbitmap._nativeBitmap;
                 eq = _nativeBitmap.Height == _otherBitmap.Height &&
@@ -57,7 +57,7 @@ namespace zcode_mac
 
         public IGraphics CreateGraphics()
         {            
-            return new MacGraphics(() => new SkiaSharp.SKCanvas(_nativeBitmap), _nativeFont,_nativeBitmap);
+            return new SkiaGraphics(() => new SkiaSharp.SKCanvas(_nativeBitmap), _nativeFont,_nativeBitmap);
         }
 
         public void Save(string filename)

@@ -122,6 +122,11 @@ namespace zcode_base
                 outbg.DrawImage(outbi, graphicsSystem.CreateRectangle(1, 1, outbi.Size.Width, outbi.Size.Height), graphicsSystem.CreateRectangle(0, 0, outbi.Size.Width, outbi.Size.Height));
                 return (Chr: ch, bmp: outb);
             }).ToDictionary((item) => item.Chr, (item) => item.bmp);
+            //bmpFont.Aggregate((object)null, (ignore, current) =>
+            //{
+            //    current.Value.Save($"mac_zethana_{(char.IsUpper(current.Key) ? "_" : "")}{current.Key}.png");
+            //    return null;
+            //});
             var length = s.Length;
             var line_length = ((int)(Math.Sqrt(length))) + 1;
             line_length = line_length > 80 ? line_length : 80;
