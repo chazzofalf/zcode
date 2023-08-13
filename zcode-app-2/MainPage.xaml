@@ -89,11 +89,14 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Image HorizontalOptions="Start"
-                       VerticalOptions="Start"
+                <ScrollView Grid.Row="0" HorizontalScrollBarVisibility="Always"
+                            VerticalScrollBarVisibility="Always"> 
+                    <Image 
                        x:Name="ImViewer"
-                       Grid.Row="0"
+                       
                        ></Image>
+                </ScrollView>
+                
                 <HorizontalStackLayout HorizontalOptions="FillAndExpand" Grid.Row="1">
                     
                     <Button
