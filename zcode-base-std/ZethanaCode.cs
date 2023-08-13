@@ -3,6 +3,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using zcode_api_std;
+using System.Threading.Tasks;
+
 namespace zcode_base
 {
     public class ZethanaCode : IDisposable
@@ -28,26 +30,60 @@ namespace zcode_base
             var rc = b.Size.Height / 24;
             var cc = b.Size.Width / 24;
             var x = Enumerable.Range(0, rc).Select(el => Enumerable.Range(0, cc).Zip(Enumerable.Repeat(el, cc), (rce, cce) => (RC: cce, CC: rce)));
-            var xx = string.Join(Environment.NewLine, x.Select(xe => {
-                return xe.Select(xei => {
+            var xx = string.Join(Environment.NewLine, Extractline(b, bmpFont, x)
+
+                );
+
+            /*(.Select(xl => {
+
+            return (new string(xl.ToArray())).Trim();
+        }).ToArray());*/
+            return xx;
+        }
+
+        private IEnumerable<string> Extractline(IBitmap b, Dictionary<IBitmap, char> bmpFont, IEnumerable<IEnumerable<(int RC, int CC)>> x)
+        {
+            var outxt=  x.Select(xe =>
+            {
+                var asyncout = xe.Select(xei =>
+                {
                     var bseg = graphicsSystem.CreateBitmap(24, 24);
                     var bsegg = bseg.CreateGraphics();
 
                     bsegg.DrawImage(b, graphicsSystem.CreateRectangle(0, 0, 24, 24), graphicsSystem.CreateRectangle(xei.CC * 24, xei.RC * 24, 24, 24));
                     if (!bmpFont.ContainsKey(bseg))
                     {
-                        return ' ';
+                        return Task.Run(async () =>
+                        {
+                            await Task.Yield();
+                            return ' ';
+                        });
+
                     }
                     else
                     {
-                        return bmpFont[bseg];
+                        return Task.Run(async () =>
+                        {
+                            await Task.Yield();
+                            return bmpFont[bseg];
+                        });
+
                     }
                 });
-            }).Select(xl => {
-                return (new string(xl.ToArray())).Trim();
-            }).ToArray());
-            return xx;
+                var txtt = Task.Run(async () =>
+                {
+                    await Task.Yield();
+                    return new string(await Task.WhenAll(asyncout));
+                });
+                return txtt;
+
+
+
+            });
+            var outxtc = Task.WhenAll(outxt);
+            return outxtc.Result;
         }
+
         public zcode_api_std.IBitmap FromText(string s)
         {
             var bmpFont = fc.FontCacheDictionary;
