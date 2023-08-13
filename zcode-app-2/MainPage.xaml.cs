@@ -33,6 +33,7 @@ namespace zcode_app_2
             var png = bm.PNGData;
 
             AtTextImg.Source = ImageSource.FromStream(() => png);
+            
         }
         
         private async Task LoadImage()
@@ -48,6 +49,7 @@ namespace zcode_app_2
                 var png = bm.PNGData;
 
                 AtTextImg.Source = ImageSource.FromStream(() => png);
+                
             }
         }
         private async Task SaveImage()
@@ -83,12 +85,61 @@ namespace zcode_app_2
 
         private void View_Clicked(object sender, EventArgs e)
         {
-
+            Editor.IsVisible = !(ImageViewer.IsVisible ^= true);
+            Task.Run(async () =>
+            {
+                await Task.Yield();
+                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+                if (coder == null)
+                {
+                    coder = await ZethanaCode.InitAsync(sgs);
+                }
+                var bm = await coder.FromTextAsync(RegText.Text);
+                var png = bm.PNGData;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    ImViewer.Source = ImageSource.FromStream(() => png);
+                });
+                
+            });
+            
         }
-
+        
         private void Share_Clicked(object sender, EventArgs e)
         {
+            string fileName = Path.Combine(FileSystem.Current.CacheDirectory, $"tempshare_{Random.Shared.Next()}.png");
+            Task.Run(async () =>
+            {
+                await Task.Yield();
+                await Task.Yield();
+                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+                if (coder == null)
+                {
+                    coder = await ZethanaCode.InitAsync(sgs);
+                }
+                CancellationTokenSource cts = new CancellationTokenSource();
+                CancellationToken token = cts.Token;
+                var bm = await coder.FromTextAsync(RegText.Text);
+                var png = bm.PNGData;
+                var fio = new System.IO.FileStream(fileName,FileMode.Create,FileAccess.Write);
+                png.CopyTo(fio);
+                fio.Close();
+                await global::Microsoft.Maui.ApplicationModel.DataTransfer.Share.Default.RequestAsync(new ShareFileRequest(new ShareFile(fileName)));
+                //System.IO.File.Delete(fileName);
+                    
+            });
+            
+        }
 
+        private void ExitView_Clicked(object sender, EventArgs e)
+        {
+            Editor.IsVisible = !(ImageViewer.IsVisible ^= true);
+        }
+
+        private void ContentPage_Disappearing(object sender, EventArgs e)
+        {
+            System.IO.Directory.GetFiles(FileSystem.Current.CacheDirectory)
+                .ToList().ForEach(f => System.IO.File.Delete(f));
         }
     }
 }

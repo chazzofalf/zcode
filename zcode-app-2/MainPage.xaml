@@ -1,39 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="zcode_app_2.MainPage">
+             x:Class="zcode_app_2.MainPage" Disappearing="ContentPage_Disappearing">
 
     <ScrollView HorizontalOptions="FillAndExpand">
-        <VerticalStackLayout
+        <StackLayout>
+            <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center"
-            HorizontalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+                IsVisible="true"
+                x:Name="Editor">
 
 
-            <Label 
+                <Label 
                 Text="Image"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-            <Border Stroke="#000000"  StrokeThickness="5" >
-                <Border Stroke="#40e0d0"  StrokeThickness="5" >
-                    <Image
+                <Border Stroke="#000000"  StrokeThickness="5" >
+                    <Border Stroke="#40e0d0"  StrokeThickness="5" >
+                        <Image
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Zethana Text. If you are blind then why are you using this program?"
                 HeightRequest="256"
                 
                 HorizontalOptions="FillAndExpand"
                         x:Name="AtTextImg"/>
+                    </Border>
                 </Border>
-            </Border>
-            <Label 
+                <Label 
                 Text="Text"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" 
                 />
-            <Editor
+                <Editor
                 HeightRequest="200"
                 
                 HorizontalOptions="FillAndExpand"
@@ -42,41 +45,79 @@
 
 
 
-            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
-                <Button
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                    <Button
                 x:Name="Refresh"
                 Text="Refresh Image"
                 SemanticProperties.Hint="Refresh Image: Refreshes the image to match the text."
                 Clicked="Refresh_Clicked"
                 />
-                <Button
+                    <Button
                 x:Name="Load"
                 Text="Load Image"
                 SemanticProperties.Hint="Load Image: Loads an image from the file system and updates the text."
                 Clicked="Load_Clicked"
                 />
-                <Button
+                    <Button
                 x:Name="Save"
                 Text="Save Image"
                 SemanticProperties.Hint="Save: Saves the currently saved image to the file system."
                 Clicked="Save_Clicked"
                 />
-                <Button
+                    <Button
                 x:Name="View"
                 Text="View"
                 SemanticProperties.Hint="View: Gets you a large view of the image."
                 Clicked="View_Clicked"
                 />
-                <Button
+                    <Button
                 x:Name="Share"
                 Text="Share"
                 SemanticProperties.Hint="Share: Shares the image."
                 Clicked="Share_Clicked"
                 />
-            </HorizontalStackLayout>
-            
+                </HorizontalStackLayout>
 
-        </VerticalStackLayout>
+
+            </VerticalStackLayout>
+            <Grid
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                IsVisible="false"
+                x:Name="ImageViewer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       x:Name="ImViewer"
+                       Grid.Row="0"
+                       ></Image>
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand" Grid.Row="1">
+                    
+                    <Button
+                x:Name="SaveV"
+                Text="Save Image"
+                SemanticProperties.Hint="Save: Saves the currently saved image to the file system."
+                Clicked="Save_Clicked"
+                />
+                    <Button
+                x:Name="ExitView"
+                Text="Exit View"
+                SemanticProperties.Hint="View: Gets you a large view of the image."
+                Clicked="ExitView_Clicked"
+                />
+                    <Button
+                x:Name="ShareV"
+                Text="Share"
+                SemanticProperties.Hint="Share: Shares the image."
+                Clicked="Share_Clicked"
+                />
+                </HorizontalStackLayout>
+            </Grid>
+        </StackLayout>
+        
     </ScrollView>
 
 </ContentPage>
