@@ -7,10 +7,14 @@
 
   <ItemGroup>
     <None Remove="demo.txt" />
+    <None Remove="good_demo.txt" />
     <None Remove="zethana.ttf" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="good_demo.txt">
+      <LogicalName>zcode_test.rsrc.good_demo_text</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="demo.txt">
       <LogicalName>zcode_test.rsrc.demo_text</LogicalName>
     </EmbeddedResource>

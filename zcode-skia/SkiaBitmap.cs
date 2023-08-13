@@ -22,6 +22,19 @@ namespace zcode_skia
         public SkiaSharp.SKBitmap NativeBitmap => _nativeBitmap;
         public ISize Size => new SkiaSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
 
+        public MemoryStream PNGData
+        {
+            get
+            {
+                var data = _nativeBitmap.Encode(SKEncodedImageFormat.Png, 100);
+                var source = data.AsStream();
+                var memoryStream = new MemoryStream();
+                source.CopyTo(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return memoryStream;
+            }
+        }
+
         public bool BitmapIsEqualToBitmap(IBitmap bitmap)
         {
             var eq = true;

@@ -23,7 +23,7 @@ namespace zcode_skia
         }));
         public IColorSet ColorSet => _colorSet.Get;
             
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -82,9 +82,12 @@ namespace zcode_skia
             var bmp = SkiaSharp.SKBitmap.Decode(bio);
             if (bmp != null)
             {
-                var gbmp = new SkiaSharp.SKBitmap(bmp.Width, bmp.Height);                
-                var can = new SkiaSharp.SKCanvas(gbmp);
-                can.DrawBitmap(bmp, SkiaSharp.SKPoint.Empty);
+                var gbmp = new SkiaSharp.SKBitmap(bmp.Width, bmp.Height);
+
+                using (var can = new SkiaSharp.SKCanvas(gbmp))
+                {
+                    can.DrawBitmap(bmp, SkiaSharp.SKPoint.Empty);
+                }                    
                 return new SkiaBitmap(gbmp, Font);
             }
             return null;

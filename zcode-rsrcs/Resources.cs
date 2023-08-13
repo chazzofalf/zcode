@@ -8,6 +8,7 @@ namespace zcode_rsrcs
     {
         public static string FontResourceName => "zcode.rsrc.zethana_font";
         public static string DemoResourceName => "zcode_test.rsrc.demo_text";
+        public static string GoodDemoResourceName => "zcode_test.rsrc.good_demo_text";
     }
     
 

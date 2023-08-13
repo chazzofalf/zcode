@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using zcode_api_std;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace zcode_base
 {
@@ -31,6 +32,10 @@ namespace zcode_base
         {
             await Task.Yield();
             return FromBitmap(b);
+        }
+        public string FromBitmap(string filename)
+        {
+            return FromBitmap(graphicsSystem.CreateBitmapFromFile(filename));
         }
         public string FromBitmap(zcode_api_std.IBitmap b)
         {
