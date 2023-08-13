@@ -3,21 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-win", "zcode-win\zcode-win.csproj", "{234D9832-5C85-4E5B-A7A1-AD8ACA4BBF6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-api-std", "zcode-api-std\zcode-api-std.csproj", "{6C176CFD-CA8F-4057-A8EC-06B0054E482E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-api-std", "zcode-api-std\zcode-api-std.csproj", "{6C176CFD-CA8F-4057-A8EC-06B0054E482E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-base-std", "zcode-base-std\zcode-base-std.csproj", "{546E745E-5D50-4CC2-A614-400DF532F480}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-base-std", "zcode-base-std\zcode-base-std.csproj", "{546E745E-5D50-4CC2-A614-400DF532F480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-rsrcs", "zcode-rsrcs\zcode-rsrcs.csproj", "{34835574-0CE3-4308-8E01-9113BE161BFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-rsrcs", "zcode-rsrcs\zcode-rsrcs.csproj", "{34835574-0CE3-4308-8E01-9113BE161BFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-common-std", "zcode-common-std\zcode-common-std.csproj", "{94D9585D-EDB9-48ED-8B4B-49BC8C3B27AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-win-app", "zcode-win-app\zcode-win-app.csproj", "{9786DF4F-DFB8-430B-8EFA-C03210DBCC9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-skia", "zcode-skia\zcode-skia.csproj", "{061A4873-E157-4D1C-B033-4C76859032DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-common-std", "zcode-common-std\zcode-common-std.csproj", "{94D9585D-EDB9-48ED-8B4B-49BC8C3B27AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-skia", "zcode-skia\zcode-skia.csproj", "{061A4873-E157-4D1C-B033-4C76859032DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-core-app", "zcode-core-app\zcode-core-app.csproj", "{519BCB89-8D67-4543-9D83-833F0E7685AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-core-app", "zcode-core-app\zcode-core-app.csproj", "{519BCB89-8D67-4543-9D83-833F0E7685AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{234D9832-5C85-4E5B-A7A1-AD8ACA4BBF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{234D9832-5C85-4E5B-A7A1-AD8ACA4BBF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{234D9832-5C85-4E5B-A7A1-AD8ACA4BBF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{234D9832-5C85-4E5B-A7A1-AD8ACA4BBF6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C176CFD-CA8F-4057-A8EC-06B0054E482E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C176CFD-CA8F-4057-A8EC-06B0054E482E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C176CFD-CA8F-4057-A8EC-06B0054E482E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +33,6 @@ Global
 		{34835574-0CE3-4308-8E01-9113BE161BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34835574-0CE3-4308-8E01-9113BE161BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34835574-0CE3-4308-8E01-9113BE161BFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9786DF4F-DFB8-430B-8EFA-C03210DBCC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9786DF4F-DFB8-430B-8EFA-C03210DBCC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9786DF4F-DFB8-430B-8EFA-C03210DBCC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9786DF4F-DFB8-430B-8EFA-C03210DBCC9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94D9585D-EDB9-48ED-8B4B-49BC8C3B27AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94D9585D-EDB9-48ED-8B4B-49BC8C3B27AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94D9585D-EDB9-48ED-8B4B-49BC8C3B27AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
