@@ -64,7 +64,9 @@
                 SemanticProperties.Hint="Save: Saves the currently saved image to the file system."
                 Clicked="Save_Clicked"
                 />
-                    <Button
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Button
                 x:Name="View"
                 Text="View"
                 SemanticProperties.Hint="View: Gets you a large view of the image."
@@ -77,6 +79,7 @@
                 Clicked="Share_Clicked"
                 />
                 </HorizontalStackLayout>
+
 
 
             </VerticalStackLayout>
