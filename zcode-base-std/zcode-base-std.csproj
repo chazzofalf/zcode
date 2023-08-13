@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\zcode-api-std\zcode-api-std.csproj" />
+    <ProjectReference Include="..\zcode-common-std\zcode-common-std.csproj" />
   </ItemGroup>
 
 </Project>

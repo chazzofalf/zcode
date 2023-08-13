@@ -8,7 +8,7 @@ namespace zcode_base
     public class ZethanaCode : IDisposable
     {
         private IGraphicsSystem graphicsSystem;
-
+        private ZethanaFontCache fc;
 
         private bool disposedValue;
 
@@ -18,64 +18,13 @@ namespace zcode_base
         {
 
             this.graphicsSystem = graphics;
-
+            this.fc = new ZethanaFontCache(graphics);
         }
 
-        class BitmapComparer : IEqualityComparer<zcode_api_std.IBitmap>
-        {
-            public bool Equals(zcode_api_std.IBitmap x, zcode_api_std.IBitmap y)
-            {
-                if ((x != null) != (y != null))
-                {
-                    return false;
-                }
-                else if (x != null && y != null)
-                {
-                    if (ReferenceEquals(x, y))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return x.BitmapIsEqualToBitmap(y);
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-
-            }
-
-            public int GetHashCode( zcode_api_std.IBitmap obj)
-            {
-                return 0;
-            }
-        }
+        
         public string FromBitmap(zcode_api_std.IBitmap b)
         {
-            var alphas = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.!?";
-            var bmpFont = alphas.Select(ch => {
-                var isCap = char.IsUpper(ch);
-                var outbi = graphicsSystem.CreateBitmap(22, 22);
-                var outb = graphicsSystem.CreateBitmap(24, 24);
-                var gb = graphicsSystem.CreateBitmap(1, 1);
-                var gg = gb.CreateGraphics();
-                var gs = gg.MeasureText($"{ch}");
-                gs = graphicsSystem.CreateSizeF(gs.Width > 0 ? gs.Width : 1, gs.Height > 0 ? gs.Height : 1);
-                var gss = graphicsSystem.CreateSize((int)Math.Ceiling(gs.Width), (int)Math.Ceiling(gs.Height));
-                gb = graphicsSystem.CreateBitmap(gss.Width, gss.Height);
-                gg = gb.CreateGraphics();
-                gg.Clear(isCap ? graphicsSystem.ColorSet.Turquoise : graphicsSystem.ColorSet.Black);
-                gg.DrawString($"{ch}", isCap ? graphicsSystem.ColorSet.Black : graphicsSystem.ColorSet.Turquoise);
-                var outbig = outbi.CreateGraphics();
-                var outbg = outb.CreateGraphics();
-                outbig.DrawImage(gb, graphicsSystem.CreateRectangle(0, 0, outbi.Size.Width, outbi.Size.Height), graphicsSystem.CreateRectangle(0, 0, gb.Size.Width, gb.Size.Height));
-                outbg.Clear(isCap ? graphicsSystem.ColorSet.Turquoise : graphicsSystem.ColorSet.Black);
-                outbg.DrawImage(outbi, graphicsSystem.CreateRectangle(1, 1, outbi.Size.Width, outbi.Size.Height), graphicsSystem.CreateRectangle(0, 0, outbi.Size.Width, outbi.Size.Height));
-                return (Chr: ch, bmp: outb);
-            }).ToDictionary((item) => item.Chr, (item) => item.bmp)
-            .ToDictionary((item) => item.Value, (item) => item.Key, new zcode_base.ZethanaCode.BitmapComparer());
+            var bmpFont = fc.ReverseFontCacheDictionary;
             var rc = b.Size.Height / 24;
             var cc = b.Size.Width / 24;
             var x = Enumerable.Range(0, rc).Select(el => Enumerable.Range(0, cc).Zip(Enumerable.Repeat(el, cc), (rce, cce) => (RC: cce, CC: rce)));
@@ -101,27 +50,8 @@ namespace zcode_base
         }
         public zcode_api_std.IBitmap FromText(string s)
         {
-            var alphas = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.!?";
-            var bmpFont = alphas.Select(ch => {
-                var isCap = char.IsUpper(ch);
-                var outbi = graphicsSystem.CreateBitmap(22, 22);
-                var outb = graphicsSystem.CreateBitmap(24, 24);
-                var gb = graphicsSystem.CreateBitmap(1, 1);
-                var gg = gb.CreateGraphics();
-                var gs = gg.MeasureText($"{ch}");
-                gs = graphicsSystem.CreateSizeF(gs.Width > 0 ? gs.Width : 1, gs.Height > 0 ? gs.Height : 1);
-                var gss = graphicsSystem.CreateSize((int)Math.Ceiling(gs.Width), (int)Math.Ceiling(gs.Height));
-                gb = graphicsSystem.CreateBitmap(gss.Width, gss.Height);
-                gg = gb.CreateGraphics();
-                gg.Clear(isCap ? graphicsSystem.ColorSet.Turquoise : graphicsSystem.ColorSet.Black);
-                gg.DrawString($"{ch}", isCap ? graphicsSystem.ColorSet.Black : graphicsSystem.ColorSet.Turquoise);
-                var outbig = outbi.CreateGraphics();
-                var outbg = outb.CreateGraphics();
-                outbig.DrawImage(gb, graphicsSystem.CreateRectangle(0, 0, outbi.Size.Width, outbi.Size.Height), graphicsSystem.CreateRectangle(0, 0, gb.Size.Width, gb.Size.Height));
-                outbg.Clear(isCap ? graphicsSystem.ColorSet.Turquoise : graphicsSystem.ColorSet.Black);
-                outbg.DrawImage(outbi, graphicsSystem.CreateRectangle(1, 1, outbi.Size.Width, outbi.Size.Height), graphicsSystem.CreateRectangle(0, 0, outbi.Size.Width, outbi.Size.Height));
-                return (Chr: ch, bmp: outb);
-            }).ToDictionary((item) => item.Chr, (item) => item.bmp);
+            var bmpFont = fc.FontCacheDictionary;
+            
             //bmpFont.Aggregate((object)null, (ignore, current) =>
             //{
             //    current.Value.Save($"mac_zethana_{(char.IsUpper(current.Key) ? "_" : "")}{current.Key}.png");
