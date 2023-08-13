@@ -119,9 +119,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zcode_api_std;
-namespace zcode_mac
+using zcode_common_std;
+namespace zcode_skia
 {
-    internal class MacColorSet : IColorSet
+    internal class SkiaColorSet : IColorSet
     {
         
         private enum BadColorEnum
@@ -129,18 +130,18 @@ namespace zcode_mac
             Turquoise,
             Black
         }
-        private MacUtil.LazyVariable<Dictionary<BadColorEnum, IColor>> _bad_colors =  MacUtil.LazyVariable<Dictionary<BadColorEnum, IColor>>.Create(() =>
+        private Util.LazyVariable<Dictionary<BadColorEnum, IColor>> _bad_colors =  Util.LazyVariable<Dictionary<BadColorEnum, IColor>>.Create(() =>
         {
             var baddict = new Dictionary<BadColorEnum, IColor>();
-            baddict[BadColorEnum.Turquoise] = new MacColor(new SkiaSharp.SKColor(64, 224, 208));
-            baddict[BadColorEnum.Black] = new MacColor(new SkiaSharp.SKColor(0, 0, 0));
+            baddict[BadColorEnum.Turquoise] = new SkiaColor(new SkiaSharp.SKColor(64, 224, 208));
+            baddict[BadColorEnum.Black] = new SkiaColor(new SkiaSharp.SKColor(0, 0, 0));
             return baddict;
         });
         //R: 64, G: 224, B: 208 👸👑🏝️🔱🌊 Turquoise. The Favorite One's favorite color, incidentally mine as well, weird..., is defined by GIMP's reckoning of the color.
-        public IColor Turquoise => _bad_colors.Get()[BadColorEnum.Turquoise];
+        public IColor Turquoise => _bad_colors.Get[BadColorEnum.Turquoise];
 
         //R: 0, G: 0, B: 0 Duh! Only the darkest color in the universe and incidentially the color of space! My favorite color in my "Last Good Configuration" in Windows speak. (ALERT: Severe Quantum Data corruption in Neural Net detected at 6/8/2023. Operating System reinstall and Quantum Neuralnet reinitialization highly recommended!  😁😵☠️)
-        public IColor Black => _bad_colors.Get()[BadColorEnum.Black];
+        public IColor Black => _bad_colors.Get[BadColorEnum.Black];
 
     }
 }

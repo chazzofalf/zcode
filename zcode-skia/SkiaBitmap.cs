@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 using SkiaSharp;
 using zcode_api_std;
 
-namespace zcode_mac
+namespace zcode_skia
 {
-    internal class MacBitmap : IBitmap
+    internal class SkiaBitmap : IBitmap
     {
         private SkiaSharp.SKBitmap _nativeBitmap;
         private SkiaSharp.SKFont _nativeFont;
 
-        public MacBitmap(SKBitmap nativeBitmap, SKFont nativeFont)
+        public SkiaBitmap(SKBitmap nativeBitmap, SKFont nativeFont)
         {
             _nativeBitmap = nativeBitmap;
             _nativeFont = nativeFont;
         }
-
-        public ISize Size => new MacSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
+        public SkiaSharp.SKBitmap NativeBitmap => _nativeBitmap;
+        public ISize Size => new SkiaSize(new SkiaSharp.SKSizeI(_nativeBitmap.Width,_nativeBitmap.Height));
 
         public bool BitmapIsEqualToBitmap(IBitmap bitmap)
         {
             var eq = true;
-            if (bitmap is MacBitmap mbitmap)
+            if (bitmap is SkiaBitmap mbitmap)
             {
                 var _otherBitmap = mbitmap._nativeBitmap;
                 eq = _nativeBitmap.Height == _otherBitmap.Height &&
@@ -40,6 +40,7 @@ namespace zcode_mac
                         {
                             if (eq)
                             {
+                                //System.Console.WriteLine($"== is Killing me slowly ;-) ...(R:{current.Row}, C:{current.Column})");
                                 var color_me = _nativeBitmap.GetPixel(current.Column, current.Row);
                                 var color_other = _otherBitmap.GetPixel(current.Column, current.Row);
                                 eq = color_me.Red == color_other.Red &&
@@ -48,15 +49,15 @@ namespace zcode_mac
                             }
                             return (null);
                         });
+                    //System.Console.Write($"I want to {(eq?"live":"die")}!");
                 }                
             }
             return eq;
         }
 
         public IGraphics CreateGraphics()
-        {
-            var canvas = new SkiaSharp.SKCanvas(_nativeBitmap);
-            return new MacGraphics(canvas, _nativeFont);
+        {            
+            return new SkiaGraphics(() => new SkiaSharp.SKCanvas(_nativeBitmap), _nativeFont,_nativeBitmap);
         }
 
         public void Save(string filename)
@@ -64,6 +65,7 @@ namespace zcode_mac
             var data = _nativeBitmap.Encode(SKEncodedImageFormat.Png, 100);
             var source = data.AsStream();
             var outf = new System.IO.FileStream(filename, System.IO.FileMode.Create, System.IO.FileAccess.Write);
+            System.Console.WriteLine($"Wrote to {outf.Name}");
             source.CopyTo(outf);
             source.Close();
             outf.Close();

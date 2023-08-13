@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 using SkiaSharp;
 using zcode_api_std;
 
-namespace zcode_mac
+namespace zcode_skia
 {
-    internal class MacSize : ISize
+    internal class SkiaSize : ISize
     {
         private SkiaSharp.SKSizeI _skSize;
 
-        public MacSize(SKSizeI skSize)
+        public SkiaSize(SKSizeI skSize)
         {
             _skSize = skSize;
         }
 
-        public int Width => throw new NotImplementedException();
+        public int Width => _skSize.Width;
 
-        public int Height => throw new NotImplementedException();
+        public int Height => _skSize.Height;
     }
 }
