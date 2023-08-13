@@ -14,7 +14,11 @@ namespace zcode_base
 
         private bool disposedValue;
 
-
+        public static async Task<ZethanaCode>InitAsync(IGraphicsSystem graphicsSystem)
+        {
+            await Task.Yield();
+            return new ZethanaCode(graphicsSystem);
+        }
 
         public ZethanaCode(IGraphicsSystem graphics)
         {
@@ -23,7 +27,11 @@ namespace zcode_base
             this.fc = new ZethanaFontCache(graphics);
         }
 
-        
+        public async Task<string>FromBitmapAsync(zcode_api_std.IBitmap b)
+        {
+            await Task.Yield();
+            return FromBitmap(b);
+        }
         public string FromBitmap(zcode_api_std.IBitmap b)
         {
             var bmpFont = fc.ReverseFontCacheDictionary;
@@ -83,7 +91,12 @@ namespace zcode_base
             var outxtc = Task.WhenAll(outxt);
             return outxtc.Result;
         }
-
+        
+        public async Task<zcode_api_std.IBitmap> FromTextAsync(string s)
+        {
+            await Task.Yield();
+            return FromText(s);
+        }
         public zcode_api_std.IBitmap FromText(string s)
         {
             var bmpFont = fc.FontCacheDictionary;
