@@ -32,7 +32,14 @@ namespace zcode_app_2
             var bm = await coder.FromTextAsync(RegText.Text);
             var png = bm.PNGData;
 
-            AtTextImg.Source = ImageSource.FromStream(() => png);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+
+                AtTextImg.Source = null;
+                AtTextImg.Source = ImageSource.FromStream(() => png);
+            });
+
+            
             
         }
         
@@ -48,8 +55,12 @@ namespace zcode_app_2
                 var bm = await coder.FromTextAsync(RegText.Text);
                 var png = bm.PNGData;
 
-                AtTextImg.Source = ImageSource.FromStream(() => png);
-                
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    AtTextImg.Source = null;
+                    AtTextImg.Source = ImageSource.FromStream(() => png);
+                });
+
             }
         }
         private async Task SaveImage()
@@ -98,6 +109,8 @@ namespace zcode_app_2
                 var png = bm.PNGData;
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
+                    ImViewer.Source = null;
+
                     ImViewer.Source = ImageSource.FromStream(() => png);
                 });
                 
