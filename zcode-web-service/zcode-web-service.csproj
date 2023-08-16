@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>zcode_web_service</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\zcode-api-std\zcode-api-std.csproj" />
+    <ProjectReference Include="..\zcode-base-std\zcode-base-std.csproj" />
+    <ProjectReference Include="..\zcode-common-std\zcode-common-std.csproj" />
+    <ProjectReference Include="..\zcode-core-app\zcode-core-app.csproj" />
+    <ProjectReference Include="..\zcode-rsrcs\zcode-rsrcs.csproj" />
+    <ProjectReference Include="..\zcode-skia\zcode-skia.csproj" />
+  </ItemGroup>
+
+</Project>

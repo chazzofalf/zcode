@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-skia", "zcode-skia\zc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-core-app", "zcode-core-app\zcode-core-app.csproj", "{519BCB89-8D67-4543-9D83-833F0E7685AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-app-2", "zcode-app-2\zcode-app-2.csproj", "{838BDC26-C24C-412E-B610-897B800F9EBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zcode-app-2", "zcode-app-2\zcode-app-2.csproj", "{838BDC26-C24C-412E-B610-897B800F9EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zcode-web-service", "zcode-web-service\zcode-web-service.csproj", "{80B6E522-3327-47FC-9ED2-39C4D7E143C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{838BDC26-C24C-412E-B610-897B800F9EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{838BDC26-C24C-412E-B610-897B800F9EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{838BDC26-C24C-412E-B610-897B800F9EBB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{80B6E522-3327-47FC-9ED2-39C4D7E143C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B6E522-3327-47FC-9ED2-39C4D7E143C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B6E522-3327-47FC-9ED2-39C4D7E143C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B6E522-3327-47FC-9ED2-39C4D7E143C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

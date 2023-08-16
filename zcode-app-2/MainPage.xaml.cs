@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Maui.Storage;
+﻿
+using CommunityToolkit.Maui.Storage;
 using Microsoft.Maui.Hosting;
 using System.IO;
 using System.Threading;
+using zcode_api_std;
 using zcode_base;
 using zcode_rsrcs;
 using zcode_skia;
@@ -9,7 +11,7 @@ using zcode_skia;
 namespace zcode_app_2
 {
     public partial class MainPage : ContentPage
-    {
+    {        
         int count = 0;
         ZethanaCode coder = null;
         public MainPage()
@@ -24,19 +26,20 @@ namespace zcode_app_2
         private async Task UpdateImageToText()
         {
             await Task.Yield();
-            SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+            
             if (coder == null)
             {
+                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
                 coder = await ZethanaCode.InitAsync(sgs);
             }
             var bm = await coder.FromTextAsync(RegText.Text);
-            var png = bm.PNGData;
+            //var png = bm.PNGData;
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
 
                 AtTextImg.Source = null;
-                AtTextImg.Source = ImageSource.FromStream(() => png);
+                AtTextImg.Source = ImageSource.FromStream(() => bm.PNGData);
             });
 
             
@@ -53,12 +56,12 @@ namespace zcode_app_2
                 var path = x.FullPath;
                 RegText.Text = coder.FromBitmap(path);
                 var bm = await coder.FromTextAsync(RegText.Text);
-                var png = bm.PNGData;
+                //var png = bm.PNGData;
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     AtTextImg.Source = null;
-                    AtTextImg.Source = ImageSource.FromStream(() => png);
+                    AtTextImg.Source = ImageSource.FromStream(() => bm.PNGData);
                 });
 
             }
@@ -67,16 +70,17 @@ namespace zcode_app_2
         {
             await Task.Yield();
             await Task.Yield();
-            SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+            
             if (coder == null)
             {
+                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
                 coder = await ZethanaCode.InitAsync(sgs);
             }
             CancellationTokenSource cts = new CancellationTokenSource();
             CancellationToken token = cts.Token;
             var bm = await coder.FromTextAsync(RegText.Text);
-            var png = bm.PNGData;
-            var pick = await FileSaver.Default.SaveAsync("output.png", png, token);
+            //var png = bm.PNGData;
+            var pick = await FileSaver.Default.SaveAsync("output.png", bm.PNGData, token);
         }
 
         private void Refresh_Clicked(object sender, EventArgs e)
@@ -93,6 +97,7 @@ namespace zcode_app_2
         {
             _ = SaveImage();
         }
+        
 
         private void View_Clicked(object sender, EventArgs e)
         {
@@ -100,18 +105,19 @@ namespace zcode_app_2
             Task.Run(async () =>
             {
                 await Task.Yield();
-                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+                
                 if (coder == null)
                 {
+                    SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
                     coder = await ZethanaCode.InitAsync(sgs);
                 }
                 var bm = await coder.FromTextAsync(RegText.Text);
-                var png = bm.PNGData;
+                //var png = bm.PNGData;
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     ImViewer.Source = null;
 
-                    ImViewer.Source = ImageSource.FromStream(() => png);
+                    ImViewer.Source = ImageSource.FromStream(() =>  bm.PNGData);
                 });
                 
             });
@@ -125,17 +131,18 @@ namespace zcode_app_2
             {
                 await Task.Yield();
                 await Task.Yield();
-                SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
+                
                 if (coder == null)
                 {
+                    SkiaGraphicsSystem sgs = new SkiaGraphicsSystem();
                     coder = await ZethanaCode.InitAsync(sgs);
                 }
                 CancellationTokenSource cts = new CancellationTokenSource();
                 CancellationToken token = cts.Token;
                 var bm = await coder.FromTextAsync(RegText.Text);
-                var png = bm.PNGData;
+                //var png = bm.PNGData;
                 var fio = new System.IO.FileStream(fileName,FileMode.Create,FileAccess.Write);
-                png.CopyTo(fio);
+                bm.PNGData.CopyTo(fio);
                 fio.Close();
                 await global::Microsoft.Maui.ApplicationModel.DataTransfer.Share.Default.RequestAsync(new ShareFileRequest(new ShareFile(fileName)));
                 //System.IO.File.Delete(fileName);
